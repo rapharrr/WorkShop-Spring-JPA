@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.ProjectWebService.courseSpring.entities.Category;
 import com.ProjectWebService.courseSpring.entities.Order;
 import com.ProjectWebService.courseSpring.entities.OrderItem;
+import com.ProjectWebService.courseSpring.entities.Payment;
 import com.ProjectWebService.courseSpring.entities.Product;
 import com.ProjectWebService.courseSpring.entities.User;
 import com.ProjectWebService.courseSpring.entities.enums.OrderStatus;
@@ -49,7 +50,7 @@ public class TestConfig implements CommandLineRunner {
         Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
 
         productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
-        
+
         Category cat1 = new Category(null, "Electronics");
         Category cat2 = new Category(null, "Books");
         Category cat3 = new Category(null, "Computers");
@@ -81,7 +82,12 @@ public class TestConfig implements CommandLineRunner {
         OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
         OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 
-        orderItemRepository.saveAll(Arrays.asList(oi1, oi2,oi3,oi4));
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+
+        Payment pay1 = new Payment(null,  Instant.parse("2019-06-20T21:53:07Z"), o1);
+        o1.setPayment(pay1);
+
+        orderRepository.save(o1);
     }
 
 }
